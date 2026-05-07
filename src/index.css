@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+@theme {
+  /* 1. FONT FAMILIES */
+  --font-syne: "Archivo Black", sans-serif;
+  --font-mono: "Poppins", monospace;
+
+  /* 2. COLOR PALETTE */
+  --color-bg: #0a0a0f;
+  --color-surface: #111118;
+  --color-border: #1e1e2e;
+  --color-accent: #6ee7b7;
+  --color-accent2: #38bdf8;
+  --color-muted: #4a4a6a;
+  --color-text: #e2e8f0;
+  --color-dim: #94a3b8;
+
+  /* 3. ANIMATIONS */
+  --animate-spin-slow: spin 25s linear infinite;
+  --animate-spin-reverse: spin 35s linear infinite reverse;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-pulse-glow: pulseGlow 2s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-scanline: scanline 3s linear infinite;
+  --animate-expand-bar: expandBar 1.2s ease forwards;
+  --animate-fade-up: fadeUp 0.7s ease forwards;
+
+  /* 4. KEYFRAMES */
+  @keyframes fadeUp {
+    from { 
+      opacity: 0; transform: translateY(32px); 
+    }
+    to
+    { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(110, 231, 183, 0.2); }
+    50% { box-shadow: 0 0 40px rgba(110, 231, 183, 0.5); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes scanline {
+    0% { top: -10%; }
+    100% { top: 110%; }
+  }
+  @keyframes expandBar {
+    to { transform: scaleX(1); }
+  }
+}
+
+/* 5. BASE STYLES */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-syne);
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 2px;
+  }
+}
+
+/* 6. CUSTOM COMPONENTS */
+@layer components {
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(110, 231, 183, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110, 231, 183, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .glow-text {
+    /* uses bg-linear-to-**/
+    @apply bg-linear-to-br from-accent to-accent2 bg-clip-text text-transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 border border-border;
+    &:hover {
+      @apply border-accent/40 -translate-y-1 shadow-[0_20px_60px_rgba(110,231,183,0.08)];
+    }
+  }
+
+  .skill-tag {
+    @apply font-mono text-[11px] px-2.5 py-1 rounded border border-accent/25 
+           text-accent bg-accent/5 transition-all duration-200 inline-block m-0.75
+           hover:bg-accent/12 hover:border-accent;
+  }
+
+  .nav-link {
+    @apply font-mono text-[12px] text-dim no-underline tracking-widest uppercase py-1.5 
+           relative transition-colors duration-200 hover:text-accent;
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-0 h-px bg-accent w-0 transition-[width] duration-300 ease-in-out;
+    }
+    &:hover::after {
+      @apply w-full;
+    }
+  }
+
+  .section-label {
+    @apply font-mono text-[11px] tracking-[3px] uppercase text-accent mb-3 flex items-center gap-2.5;
+    &::before {
+      content: '';
+      @apply w-6 h-px bg-accent;
+    }
+  }
+
+  .progress-fill {
+    @apply h-full bg-linear-to-r from-accent to-accent2 rounded-xs origin-left animate-expand-bar scale-x-0;
+  }
+
+  .hero-ring {
+    @apply absolute rounded-full border border-accent/8;
+  }
+
+  .cursor-dot {
+    @apply w-1.5 h-1.5 bg-accent rounded-full inline-block animate-blink;
+  }
+
+  .project-stack-badge {
+    @apply font-mono text-[10px] px-2 py-0.5 rounded-xs bg-accent2/10 border border-accent2/25 text-accent2;
+  }
+
+  .timeline-dot {
+    @apply w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_12px_rgba(110,231,183,0.6)] shrink-0 mt-1.25;
+  }
+
+  .scanline-effect {
+    @apply relative overflow-hidden;
+    &::after {
+      content: '';
+      @apply absolute inset-x-0 h-15 bg-linear-to-b from-transparent via-accent/5 to-transparent animate-scanline;
+    }
+  }
+
+  .featured-badge {
+    @apply text-[10px] font-mono tracking-[2px] text-accent uppercase px-2.5 py-1 
+           border border-accent/40 rounded-xs;
+  }
+
+  .volunteer-badge {
+    @apply text-[10px] font-mono text-[#fbbf24] tracking-[2px] px-2 py-0.5 
+           border border-[#fbbf24]/30 rounded-xs inline-block mt-2.5;
+  }
+}
