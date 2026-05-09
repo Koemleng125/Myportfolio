@@ -31,7 +31,7 @@ const PROJECTS: Project[] = [
   {
     title: 'Student Management System',
     desc: 'Web application for managing student records — registration, course enrollment, grade tracking, and attendance. Built with a Node.js backend and a React frontend.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB'],
+    stack: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
     tag: 'Full-Stack Web App',
     highlight: false,
     Icon: Layers,
