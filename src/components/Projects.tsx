@@ -3,6 +3,7 @@ import AnimatedSection from './AnimatedSection'
 import { type LucideIcon } from 'lucide-react'
 
 interface Project {
+  button: any
   title: string
   desc: string
   stack: string[]
@@ -19,6 +20,10 @@ const PROJECTS: Project[] = [
     tag: 'Full-Stack Web App',
     highlight: true,
     Icon: Globe,
+    button: {
+          text: 'View on GitHub',
+          url: 'https://github.com/yourusername/event-management-system',
+      }
   },
   {
     title: 'Employee Management System',
@@ -27,14 +32,22 @@ const PROJECTS: Project[] = [
     tag: 'Desktop Application',
     highlight: false,
     Icon: Monitor,
+    button: {
+          text: 'View on GitHub', 
+          url: 'https://github.com/yourusername/employee-management-system',
+      }
   },
   {
     title: 'Student Management System',
-    desc: 'Web application for managing student records — registration, course enrollment, grade tracking, and attendance. Built with a Node.js backend and a React frontend.',
+    desc: 'Web application for managing student records — registration, course enrollment, grade tracking, and attendance. Built with a php  backend and  html,css,javascript frontend.',
     stack: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
     tag: 'Full-Stack Web App',
     highlight: false,
     Icon: Layers,
+    button: {
+          text: 'View on GitHub',
+          url: 'https://github.com/Koemleng125/Studentmanagement',
+      }
   }
 ]
 
@@ -104,7 +117,16 @@ export default function Projects() {
                   {project.stack.map((tech) => (
                     <span key={tech} className="skill-tag" style={{ fontSize: 10 }}>{tech}</span>
                   ))}
+                 
                 </div>
+                 <a
+                    href={project.button.url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto mt-2 sm:mt-0 text-[10px] font-mono text-accent hover:underline"
+                  >
+                    {project.button.text}
+                  </a>
               </div>
             </AnimatedSection>
           ))}
